@@ -14,6 +14,32 @@ public class StoreFrontController {
         return products;
     }
 
+    List<DisplayMerchandise> shoppingCart = new List<DisplayMerchandise>();
+    
+    // Action method to handle purchasing process
+    public PageReference addToCart() {
+        for(DisplayMerchandise p : products) {
+            if(0 < p.qtyToBuy) {
+                shoppingCart.add(p);
+            }
+    }
+        return null; // stay on the same page
+    }
+    
+    public String getCartContents() {
+        if(0 == shoppingCart.size()) {
+            return '(empty)';
+        }
+        String msg = '<ul>\n';
+        for(DisplayMerchandise p : shoppingCart) {
+            msg += '<li>';
+            msg += p.name + ' (' + p.qtyToBuy + ')';
+            msg += '</li>\n';
+        }
+        msg += '</ul>';
+        return msg;
+    }
+
     // Inner class to hold online store details for item
     public class DisplayMerchandise {
         
